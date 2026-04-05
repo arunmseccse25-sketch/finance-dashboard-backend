@@ -1,0 +1,233 @@
+ZORVYN BACKEND – BACKEND DEVELOPER INTERN
+
+Finance Data Processing and Access Control Backend
+
+==================================================
+STEP 1: PROJECT OVERVIEW
+==================================================
+
+This backend system manages:
+
+- Users with different roles
+- Financial records (income & expense)
+- Dashboard summaries (total, monthly, weekly)
+- Role-based access control using Spring Security + JWT
+
+--------------------------------------------------
+
+STEP 2: TECH STACK99re9erw333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333o
+
+- Backend: Spring Boot (Java)
+- Security: Spring Security + JWT
+- Database: MySQL
+- ORM: Hibernate / JPA
+- API Testing: Postman
+- Build Tool: Maven
+
+--------------------------------------------------
+
+STEP 3: DATABASE SETUP
+
+Database Name: finance_dashboard
+
+Tables:
+- users
+- financial_records
+
+--------------------------------------------------
+
+STEP 4: RUN THE APPLICATION
+
+1. Clone the repository
+2. Configure MySQL in application.properties
+3. Run the Spring Boot application
+4. Open Postman for testing
+
+--------------------------------------------------
+
+STEP 5: USER REGISTRATION (FIRST STEP)
+
+Register ADMIN
+POST http://localhost:8080/register
+
+{
+  "username": "kumar_manager",
+  "fullName": "Arun Kumar Manager",
+  "email": "arun_manager@gmail.com",
+  "password": "Manager@2026",
+  "role": "ADMIN",
+  "status": "ACTIVE"
+}
+
+Register ANALYST
+POST http://localhost:8080/register
+
+{
+  "username": "arun_analyst",
+  "fullName": "Arun Analyst",
+  "email": "arun_analyst@gmail.com",
+  "password": "Analyst@2025",
+  "role": "ANALYST"
+}
+
+Register VIEWER
+POST http://localhost:8080/register
+
+{
+  "username": "arun_viewer",
+  "fullName": "Arun Viewer",
+  "email": "arun_viewer@gmail.com",
+  "password": "Viewer@2025",
+  "role": "VIEWER"
+}
+
+--------------------------------------------------
+
+STEP 6: LOGIN (GET JWT TOKEN)
+
+ADMIN Login
+POST http://localhost:8080/login/admin
+
+{
+  "email": "arun_admin@gmail.com",
+  "password": "Admin@2025"
+}
+
+ANALYST Login
+POST http://localhost:8080/login/analyst
+
+{
+  "email": "arun_analyst@gmail.com",
+  "password": "Analyst@2025"
+}
+
+VIEWER Login
+POST http://localhost:8080/login/viewer
+
+{
+  "email": "arun_viewer@gmail.com",
+  "password": "Viewer@2025"
+}
+
+--------------------------------------------------
+
+STEP 7: ADD JWT TOKEN IN HEADER
+
+After login, copy token and use:
+
+Authorization: Bearer <your_token>
+
+Without token → 401 Unauthorized
+Wrong role → 403 Forbidden
+
+--------------------------------------------------
+
+STEP 8: ROLE PERMISSIONS
+
+VIEWER  → Only view dashboard
+ANALYST → View records + analytics
+ADMIN   → Full CRUD (Create, Update, Delete)
+
+--------------------------------------------------
+
+STEP 9: FINANCIAL RECORD OPERATIONS
+
+Add Record (ADMIN)
+POST http://localhost:8080/records
+
+{
+  "amount": 5000.00,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-01",
+  "description": "April Month Salary",
+  "userId": 1
+}
+
+Update Record (ADMIN)
+PUT http://localhost:8080/records/1
+
+{
+  "amount": 6000.00,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-01",
+  "description": "Updated Salary Amount",
+  "userId": 1
+}
+
+Delete Record (ADMIN)
+DELETE http://localhost:8080/records/3
+
+View All Records (ANALYST / ADMIN)
+GET http://localhost:8080/records
+
+Filter By Category
+GET http://localhost:8080/records/category?category=Food
+
+Filter By Type
+GET http://localhost:8080/records/type?type=INCOME
+
+--------------------------------------------------
+
+STEP 10: DASHBOARD APIs
+
+Total Summary
+GET http://localhost:8080/api/dashboard/summary
+
+Response:
+{
+  "income": 10000.00,
+  "balance": 10000.00,
+  "expense": 0
+}
+
+Monthly Summary
+GET http://localhost:8080/api/dashboard/trends/monthly?type=EXPENSE&year=2026
+
+Weekly Summary
+GET http://localhost:8080/api/dashboard/trends/weekly
+
+--------------------------------------------------
+
+STEP 11: ERROR HANDLING
+
+Unauthorized
+{
+  "message": "Unauthorized. Please login first."
+}
+
+Access Denied
+{
+  "message": "Access denied. You are not authorized to perform this action."
+}
+
+Not Found
+{
+  "message": "Cannot delete: User not found with id: 9"
+}
+
+--------------------------------------------------
+
+STEP 12: FEATURES IMPLEMENTED
+
+- Role-Based Access Control
+- JWT Authentication
+- CRUD Operations
+- Dashboard APIs
+- Validation & Error Handling
+- Clean API Structure
+
+--------------------------------------------------
+
+STEP 13: IMPORTANT NOTES
+
+- Always login first
+- Use Bearer Token
+- Follow role permissions strictly
+
+--------------------------------------------------
+
+
+
+finance-dashboard-backend-production-d9c3.up.railway.app

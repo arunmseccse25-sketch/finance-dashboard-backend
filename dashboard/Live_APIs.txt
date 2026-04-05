@@ -1,0 +1,160 @@
+ZORVYN BACKEND - LIVE API ENDPOINTS
+=====================================
+Base URL: https://finance-dashboard-backend1.onrender.com
+=====================================
+
+
+--------------------------------------------------
+REGISTER
+--------------------------------------------------
+
+Register ADMIN
+POST https://finance-dashboard-backend1.onrender.com/auth/register
+
+{
+  "username": "kumar_manager",
+  "fullName": "Arun Kumar Manager",
+  "email": "arun_manager@gmail.com",
+  "password": "Manager@2026",
+  "role": "ADMIN",
+  "status": "ACTIVE"
+}
+
+Register ANALYST
+POST https://finance-dashboard-backend1.onrender.com/auth/register
+
+{
+  "username": "arun_analyst",
+  "fullName": "Arun Analyst",
+  "email": "arun_analyst@gmail.com",
+  "password": "Analyst@2025",
+  "role": "ANALYST"
+}
+
+Register VIEWER
+POST https://finance-dashboard-backend1.onrender.com/auth/register
+
+{
+  "username": "arun_viewer",
+  "fullName": "Arun Viewer",
+  "email": "arun_viewer@gmail.com",
+  "password": "Viewer@2025",
+  "role": "VIEWER"
+}
+
+
+--------------------------------------------------
+LOGIN (GET JWT TOKEN)
+--------------------------------------------------
+
+ADMIN Login
+POST https://finance-dashboard-backend1.onrender.com/auth/login
+
+{
+  "email": "arun_manager@gmail.com",
+  "password": "Manager@2026"
+}
+
+ANALYST Login
+POST https://finance-dashboard-backend1.onrender.com/auth/login
+
+{
+  "email": "arun_analyst@gmail.com",
+  "password": "Analyst@2025"
+}
+
+VIEWER Login
+POST https://finance-dashboard-backend1.onrender.com/auth/login
+
+{
+  "email": "arun_viewer@gmail.com",
+  "password": "Viewer@2025"
+}
+
+
+--------------------------------------------------
+ADD JWT TOKEN IN HEADER
+--------------------------------------------------
+
+After login, copy token and use:
+
+Authorization: Bearer <your_token>
+
+Without token → 401 Unauthorized
+Wrong role    → 403 Forbidden
+
+
+--------------------------------------------------
+FINANCIAL RECORD OPERATIONS
+--------------------------------------------------
+
+Add Record (ADMIN)
+POST https://finance-dashboard-backend1.onrender.com/records
+
+{
+  "amount": 5000.00,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-01",
+  "description": "April Month Salary",
+  "userId": 1
+}
+
+Update Record (ADMIN)
+PUT https://finance-dashboard-backend1.onrender.com/records/1
+
+{
+  "amount": 6000.00,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-01",
+  "description": "Updated Salary Amount",
+  "userId": 1
+}
+
+Delete Record (ADMIN)
+DELETE https://finance-dashboard-backend1.onrender.com/records/3
+
+View All Records (ANALYST / ADMIN)
+GET https://finance-dashboard-backend1.onrender.com/records
+
+Filter By Category
+GET https://finance-dashboard-backend1.onrender.com/records/category?category=Food
+
+Filter By Type
+GET https://finance-dashboard-backend1.onrender.com/records/type?type=INCOME
+
+
+--------------------------------------------------
+DASHBOARD APIs
+--------------------------------------------------
+
+Total Summary
+GET https://finance-dashboard-backend1.onrender.com/api/dashboard/summary
+
+Response:
+{
+  "income": 10000.00,
+  "balance": 10000.00,
+  "expense": 0
+}
+
+Monthly Summary
+GET https://finance-dashboard-backend1.onrender.com/api/dashboard/trends/monthly?type=EXPENSE&year=2026
+
+Weekly Summary
+GET https://finance-dashboard-backend1.onrender.com/api/dashboard/trends/weekly
+
+
+--------------------------------------------------
+IMPORTANT NOTES
+--------------------------------------------------
+
+- Always Register first
+- Then Login to get JWT Token
+- Use Bearer Token in Authorization Header
+- Follow role permissions strictly
+- App may take 50 seconds to wake up on first request (free tier)
+- H2 in-memory DB: data resets on every restart
+
+--------------------------------------------------
